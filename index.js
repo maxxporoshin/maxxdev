@@ -8,14 +8,12 @@ const port = process.env.PORT || 8080;
 
 
 router.get('/', async (ctx, next) => {
-  ctx.body = {
-    status: 200,
-    body: `I'm fine`,
-    error: null
-  };
-  console.log(`here I am at ${new Date()}`);
+  ctx.body = 'Hello, World!';
 });
 
+router.post('/log', async (ctx, next) => {
+  console.log(ctx.request.body);
+});
 
 app
   .use(router.routes())
