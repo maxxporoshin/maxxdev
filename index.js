@@ -16,8 +16,8 @@ router.get('/', async (ctx, next) => {
 });
 
 router.post('/log', async (ctx, next) => {
-  lastLog = ctx.request.body;
-  console.log(ctx.request.body);
+  lastLog = JSON.parse(ctx.request.body);
+  console.log(lastLog);
 });
 
 app
