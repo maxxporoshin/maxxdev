@@ -21,8 +21,9 @@ router.post('/log', async (ctx, next) => {
   const body = JSON.parse(ctx.request.body);
   console.log(body);
   const data = readData();
-  const logs = data[body.deviceId];
+  const logs = data[body.deviceId] || [];
   logs.push(body.location);
+  data[body.deviceId] = logs;
   writeData(data);
 });
 
