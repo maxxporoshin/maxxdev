@@ -1,4 +1,9 @@
 {
+  "name": "maxxdev",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node index"
+  },
   "dependencies": {
     "koa": "^2.4.1",
     "koa-router": "^7.3.0"
