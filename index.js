@@ -1,7 +1,10 @@
 const Koa = require('koa');
 const Router = require('koa-router');
+const koaBody = require('koa-body');
 
 const app = new Koa();
+app.use(koaBody());
+
 const router = new Router();
 
 const port = process.env.PORT || 8080;
