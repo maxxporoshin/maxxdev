@@ -9,12 +9,14 @@ const router = new Router();
 
 const port = process.env.PORT || 8080;
 
+let lastLog = null;
 
 router.get('/', async (ctx, next) => {
-  ctx.body = 'Hello, World!';
+  ctx.body = JSON.stringify(lastLog);
 });
 
 router.post('/log', async (ctx, next) => {
+  lastLog = ctx.request.body;
   console.log(ctx.request.body);
 });
 
