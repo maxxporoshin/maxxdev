@@ -4,7 +4,7 @@ const Router = require('koa-router');
 const app = new Koa();
 const router = new Router();
 
-const port = 3000;
+const port = process.env.PORT || 8080;
 
 
 router.get('/', async (ctx, next) => {
