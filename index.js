@@ -1,6 +1,8 @@
 const Koa = require('koa');
 const Router = require('koa-router');
 const koaBody = require('koa-body');
+const fs = require('fs');
+const path = require('path');
 
 const app = new Koa();
 app.use(koaBody());
@@ -9,15 +11,19 @@ const router = new Router();
 
 const port = process.env.PORT || 8080;
 
-let lastLog = null;
+const filename = 'data';
 
 router.get('/', async (ctx, next) => {
-  ctx.body = JSON.stringify(lastLog);
+  ctx.body = JSON.stringify(readData());
 });
 
 router.post('/log', async (ctx, next) => {
-  lastLog = JSON.parse(ctx.request.body);
-  console.log(lastLog);
+  const body = JSON.parse(ctx.request.body);
+  console.log(log);
+  const data = readData();
+  const logs = data[body.deviceId];
+  logs.push(body.location);
+  writeData(data);
 });
 
 app
@@ -27,3 +33,18 @@ app
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
 });
+
+function readData() {
+  let data;
+  try {
+    data = JSON.parse(fs.readFileSync(path.resolve(filename), 'utf8'));
+  } catch (e) {
+    fs.writeFileSync(path.resolve(filename), '', 'utf8');
+    data = {};
+  }
+  return data;
+}
+
+function writeData(data) {
+  fs.writeFileSync(path.resolve(filename), JSON.stringify(data), 'utf8');
+}
