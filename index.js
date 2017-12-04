@@ -19,7 +19,7 @@ router.get('/', async (ctx, next) => {
 
 router.post('/log', async (ctx, next) => {
   const body = JSON.parse(ctx.request.body);
-  console.log(log);
+  console.log(body);
   const data = readData();
   const logs = data[body.deviceId];
   logs.push(body.location);
